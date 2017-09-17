@@ -1,0 +1,22 @@
+So, this task had five parts:
+  -Generate a valid credit card number belonging to a particular issue
+  -Generate a valid credit card number with the first four digits specified
+  -Generate a valid credit card number with the last digit specified
+  -Generate a valid credit card number with the last four digits specified
+  -Determine whether a given credit card number is valid
+
+Validity is determined via the Luhn Algorithm (https://en.wikipedia.org/wiki/Luhn_algorithm), a fairly simple error-checking method.
+  -Double every other digit starting from the rightmost (other than the check digit). If this results in a number larger than 10, subtract 9
+  -Add all digits together
+  -The check (last) digit equals 10 - (sum mod 10). In other words, adding the check digit should result in a multiple of ten.
+
+The first six digits of a credit card number are the issuer identification number, allowing one to differentiate between a Visa and an MasterCard. I used the list found at http://stevemorse.org/ssn/List_of_Bank_Identification_Numbers.html, but any list should work. I was a bit over-specific in my algorithm. Less specificity may have still satisfied the prompt.
+
+Generating for the four digits was fairly simple - just allow your script to accept custom starting values, and proceed as normal.
+
+Generating for a last digit is simpler than it looks - there are only ten possible values that your credit card number can end in - it is entirely possible to generate randomly numbers until you receive the check digit required.
+
+Generating for a set of last four digits follows a similar line of thought - even if you still specify the first four digits and the last three, you still have another 8 random digits, and only ten possible values for the check digit - just generate numbers until it ends with the specified digit.
+
+Validating credit card numbers was only a question of checking them via Luhn algorithm, as far as I was aware - that part of the script remains a bit glitchy, but it worked well enough to pass their test on the second or third attempt.
+  
