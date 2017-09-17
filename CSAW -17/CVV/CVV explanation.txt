@@ -1,5 +1,5 @@
 So, this task had five parts:
-  -Generate a valid credit card number belonging to a particular issue
+  -Generate a valid credit card number belonging to a particular issuer
   -Generate a valid credit card number with the first four digits specified
   -Generate a valid credit card number with the last digit specified
   -Generate a valid credit card number with the last four digits specified
