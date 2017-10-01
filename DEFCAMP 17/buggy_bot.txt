@@ -4,8 +4,8 @@ Trying a few test moves, it's fairly difficult to determine whether a move will 
 Fortunately for us, no pattern analyzation is required - counting spaces moving to themselves (i.e. e2-e2), there's only 4096 possibilities for possible first moves, which is all we care about. This number is within the range of brute forcing.
 Unfortunately, there's no way to reset the program from within - the process must be killed and restarted for every iteration. Another member of b01lers used pwntools, I used bash scripts.
 
-First step to brute for is getting the program to accept input piped into it - this is done by replacing raw_input with sys.stdin.readline() and sanitizing the input.
-Next step is a simple bash script of 4 nest for loops to test every iteration of starting square and ending square. I didn't do any out sanitization, so the output file is quite large - almost 6 MB of text.
+First step to brute force is getting the program to accept input piped into it - this is done by replacing raw_input with sys.stdin.readline and sanitizing the input.
+Next step is a simple bash script of 4 nest for loops to test every iteration of starting square and ending square. I didn't do any output sanitization, so the output file is quite large - almost 6 MB of text.
 Pipe it into less and save, send the output to a file.
 
 Once you have every move combination, grep 'K' chessOut.txt will show every king position, and piping that output into sort -u returns unique king positions - format these as specified, hash it, and you have your flag.
