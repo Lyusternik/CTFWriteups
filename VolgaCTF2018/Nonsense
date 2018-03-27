@@ -1,0 +1,37 @@
+I saw two things when I examined the initial code:
+- The DSA algorithm is standard, without any insecure changes.
+- The way each random k is generator (LCG) is not secure.
+
+Some things I did not pick up initially:
+-The fact that the 10 signatures given are consecutive is important.
+-The fact that the DSA modulo and the LCG modulo simplifies the math significantly.
+
+After some algebra, the simplest way I found that the best way of representing the problem at hand is 
+
+s*k = h + x*r % q
+Where s, h, r, and q are known.
+
+I spent far too much time attempting to figure out how to leak an initial k, without success.
+
+The breakthrough eventually came in that I realized (especially with the modulos being the same) that because each k is linearly related to the previous, a system of equations can be written.
+
+In proper DSA, this occurs:
+
+s1*k1 = h1 + x*r1 % q
+s2*k2 = h2 + x*r2 % q
+s3*k3 = h3 + x*r3 % q
+...
+
+However, in our case, because LCG is not a proper CSPRNG, we have an equation relating k1 and k2 (which, conveniently, shares the same q!).
+k2 = a * k1 + b % q
+
+We can use this substitution to create the following system of equations:
+
+s1*k1 = h1 + x*r1 % q
+s2*k1*a + s2*b = h2 + x*r2 % q
+
+Unfortunately, in my modest experience with sage, I couldn't figure out how to use solve_mod with a long integer modulus. I eventually relented and used a university-provided Mathematica interpreter. Which is attached. All r, s, and q are provided within their code. h1 and h2 are merely the md5 hashes of the first two messages.
+
+The mathematica .nb is attached.
+
+
